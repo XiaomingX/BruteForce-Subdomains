@@ -43,17 +43,14 @@ import argparse
 def main():
     # 解析用户输入的域名
     parser = argparse.ArgumentParser(description='Subdomain Scanner')
-
     ## 在这里扫描子域名
     parser.add_argument('domain', type=str, nargs='?', default='taobao.com', help='The domain to scan subdomains for (default: taobao.com)')
-
     args = parser.parse_args()
     domain = args.domain if args.domain else 'qq.com'
-    # 读取子域前缀
+    # 读取子域前缀,
     prefixes = load_next_subs(filename="next_sub_full.txt")
     output = []
     output_lock = threading.Lock()
-
     def process_prefix(prefix):
         subdomain = f"{prefix}.{domain}"
         if check_subdomain_exists(subdomain):
